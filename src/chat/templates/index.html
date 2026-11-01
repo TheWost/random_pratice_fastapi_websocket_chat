@@ -11,12 +11,9 @@
     <div class="terminal" onclick="focus_form()">
 
         <div class="messages">
-            {% for message in messages %}
-                <p class="message">{{ message }}</p>
-            {% endfor %}
         </div>
 
-        <form class="input_form" method="POST" action="/chat">
+        <form onsubmit="SendMsg()">
             <span class="prompt">></span>
             <input
                 type="text"
