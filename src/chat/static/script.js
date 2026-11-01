@@ -10,7 +10,9 @@ function login(e) {
 
   const username = e.target.elements["username"].value;
 
-  ws = new WebSocket(`ws://127.0.0.1:8000/ws?username=${username}`);
+  ws = ws = new WebSocket(
+    `ws://${window.location.host}/ws?username=${encodeURIComponent(username)}`
+  );
 
   ws.onmessage = (e) => {
     const p = document.createElement("p");
