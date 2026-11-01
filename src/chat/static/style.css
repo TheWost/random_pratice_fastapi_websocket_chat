@@ -1,0 +1,68 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    height: 100vh;
+    background-color: #1d2021;
+    color: #ebdbb2;
+    font-family: monospace;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.terminal {
+    width: 700px;
+    height: 500px;
+    max-width: 90%;
+    background-color: #282828;
+    border: 1px solid #504945;
+    padding: 15px;
+
+    display: flex;
+    flex-direction: column;
+    transition: border 0.3s ease;
+}
+
+.focused_border {
+    border: 1px solid #689D6A;
+}
+
+.messages {
+    flex: 1;
+    overflow-y: auto;
+}
+
+.message {
+    margin: 5px 0;
+    overflow-wrap: anywhere;
+}
+
+.input_form {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border-top: 1px solid #504945;
+    padding-top: 12px;
+}
+
+.prompt {
+    color: #b8bb26;
+    font-size: 18px;
+}
+
+input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: #ebdbb2;
+    font-family: inherit;
+    font-size: 15px;
+}
+
+input::placeholder {
+    color: #928374;
+}

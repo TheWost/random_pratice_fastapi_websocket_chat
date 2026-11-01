@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terminal</title>
+    <link rel="stylesheet" href="{{ url_for('static', path='style.css') }}">
+</head>
+<body>
+
+    <div class="terminal" onclick="focus_form()">
+
+        <div class="messages">
+            {% for message in messages %}
+                <p class="message">{{ message }}</p>
+            {% endfor %}
+        </div>
+
+        <form class="input_form" method="POST" action="/chat">
+            <span class="prompt">></span>
+            <input
+                type="text"
+                id="message"
+                onblur="blur_form()"
+                name="message"
+                placeholder="Type something..."
+                autocomplete="off"
+                autofocus
+            >
+        </form>
+
+    </div>
+
+    <script>
+      function focus_form(){
+        document.getElementById("message").focus();
+        document.querySelector(".terminal").classList.add("focused_border")
+      }
+
+      function blur_form(){
+        document.querySelector(".terminal").classList.remove("focused_border")
+      }
+    </script>
+
+</body>
+</html>
