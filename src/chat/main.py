@@ -43,8 +43,9 @@ def main_page(request: Request):
 @app.websocket("/ws")
 async def websocket_endpoint(websocket: WebSocket, username: str = "GUEST"):
     if username.strip() == "":
+        g_count = connection_manager.guest_count
+        username = f"GUEST{g_count if g_count else ''}"
         connection_manager.guest_count += 1
-        username = f"GUEST{connection_manager.guest_count}"
 
     await connection_manager.connect(websocket, username)
     try:
