@@ -29,7 +29,9 @@ function create_login_input() {
 
   const form = document.createElement("form");
   const input = document.createElement("input");
+  input.classList.add("login_input")
   const button = document.createElement("button");
+  button.classList.add("login_submit")
 
   input.name = "username";
   input.placeholder = "Enter username";
