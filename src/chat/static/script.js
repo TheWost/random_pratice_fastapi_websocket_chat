@@ -8,14 +8,21 @@ function blur_form() {
 }
 
 const ws = new WebSocket("ws://127.0.0.1:8000/ws");
-
+const msg_place = document.querySelector(".messages");
+const terminal = document.querySelector("form");
 
 ws.onmessage = (e) => {
-  const msg_place = document.querySelector(".messages")
   const p = document.createElement("p");
-  const content = e.data
 
-  p.textcontent = content
+  p.textcontent = e.data
 
   msg_place.append(p)
+}
+
+
+function SendMsg(e) {
+  const input = e.elements["message"];
+  ws.send(input.value)
+  input.value = '';
+  e.preventDefault();
 }
