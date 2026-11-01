@@ -63,17 +63,38 @@ input {
     font-size: 15px;
 }
 
+
 .login_input {
-    background-color: #282828;
-    border: 1px solid #689D6A;
-    padding: 15px;
+    background: #282828;
+    color: #ebdbb2;
+    border: 1px solid #444;
+    padding: 12px;
+    outline: none;
+    transition: 0.2s;
+}
+
+.login_input:focus {
+  border-color: #689d6a;
+  box-shadow: 0 0 5px #689d6a33;
 }
 
 .login_submit {
-    background: transparent;
-    border: none;
-    outline: none;
-    font-size: 20px;
+  background: none;
+  color: #689d6a;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.login_submit:hover {
+  color: #8ec07c;
+}
+
+.login_form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
 
 input::placeholder {

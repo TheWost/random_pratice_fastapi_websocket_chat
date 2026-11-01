@@ -28,6 +28,7 @@ function create_login_input() {
   temrinal_container.style.display = "none";
 
   const form = document.createElement("form");
+  form.classList.add("login_form")
   const input = document.createElement("input");
   input.classList.add("login_input")
   const button = document.createElement("button");
