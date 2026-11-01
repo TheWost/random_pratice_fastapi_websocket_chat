@@ -1,20 +1,31 @@
-const ws = new WebSocket("ws://127.0.0.1:8000/ws");
 const msg_place = document.querySelector(".messages");
-const terminal = document.querySelector("form");
+const terminal_form = document.querySelector("form");
+const temrinal_container = document.querySelector("div")
 const body = document.body
+let ws;
 
 function login(e) {
+  console.log(e)
   e.preventDefault();
 
   const username = e.target.elements["username"].value;
 
-  const ws = new WebSocket(`ws://127.0.0.1:8000/ws?username=${username}`);
+  ws = new WebSocket(`ws://127.0.0.1:8000/ws?username=${username}`);
 
-  return ws
+  ws.onmessage = (e) => {
+    const p = document.createElement("p");
+
+    p.textContent = e.data
+
+    msg_place.append(p)
+  }
+
+  temrinal_container.style.display = "flex";
+  e.target.style.display = "none";
 }
 
 function create_login_input() {
-  terminal.style.display = "none";
+  temrinal_container.style.display = "none";
 
   const form = document.createElement("form");
   const input = document.createElement("input");
@@ -46,13 +57,6 @@ function blur_form() {
   document.querySelector(".terminal").classList.remove("focused_border")
 }
 
-ws.onmessage = (e) => {
-  const p = document.createElement("p");
-
-  p.textContent = e.data
-
-  msg_place.append(p)
-}
 
 function SendMsg(e) {
   e.preventDefault();

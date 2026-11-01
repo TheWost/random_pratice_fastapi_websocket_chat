@@ -1,4 +1,4 @@
-from fastapi import FastAPI, Request, WebSocket, WebSocketDisconnect
+from fastapi import FastAPI, Form, Request, WebSocket, WebSocketDisconnect
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 
@@ -10,19 +10,25 @@ app.mount(path="/static", app=StaticFiles(directory="src/chat/static"), name="st
 
 class ConnectionManager:
     def __init__(self) -> None:
-        self.__clients: list[WebSocket] = []
+        self.__clients: dict[WebSocket, str] = {}
 
-    async def connect(self, websocket: WebSocket):
+    async def connect(self, websocket: WebSocket, username: str):
         await websocket.accept()
 
-        self.__clients.append(websocket)
+        self.__clients[websocket] = username
 
-    def disconnect(self, websocket: WebSocket):
-        self.__clients.remove(websocket)
+    def disconnect(self, websocket: WebSocket, username):
+        del self.__clients[websocket]
 
-    async def broadcast(self, msg: str):
+    async def broadcast(
+        self, msg: str, websocket: WebSocket | None = None, username: str = ""
+    ):
+        if websocket:
+            username = self.__clients[websocket]
+
         for client in self.__clients:
-            await client.send_text(msg)
+            formated_msg = username + " -> " + msg
+            await client.send_text(formated_msg)
 
 
 connection_manager = ConnectionManager()
@@ -34,13 +40,16 @@ def main_page(request: Request):
 
 
 @app.websocket("/ws")
-async def websocket_endpoint(websocket: WebSocket):
-    await connection_manager.connect(websocket)
+async def websocket_endpoint(websocket: WebSocket, username: str = "GUEST"):
+    print(username)
+    await connection_manager.connect(websocket, username)
     try:
         while True:
             data = await websocket.receive_text()
-            await connection_manager.broadcast(data)
+            await connection_manager.broadcast(msg=data, websocket=websocket)
 
     except WebSocketDisconnect:
-        connection_manager.disconnect(websocket)
-        await connection_manager.broadcast("User has left chat")
+        connection_manager.disconnect(websocket, username)
+        await connection_manager.broadcast(
+            username="SERVER", msg=f"{username} has left!"
+        )

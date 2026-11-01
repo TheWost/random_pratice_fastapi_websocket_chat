@@ -13,9 +13,6 @@ body {
     align-items: center;
 }
 
-.disapear {
-  display: none;
-}
 .terminal {
     width: 700px;
     height: 500px;
@@ -64,6 +61,12 @@ input {
     color: #ebdbb2;
     font-family: inherit;
     font-size: 15px;
+}
+
+.login_input {
+    background-color: #282828;
+    border: 1px solid #689D6A;
+    padding: 15px;
 }
 
 input::placeholder {
