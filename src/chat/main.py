@@ -11,6 +11,7 @@ app.mount(path="/static", app=StaticFiles(directory="src/chat/static"), name="st
 class ConnectionManager:
     def __init__(self) -> None:
         self.__clients: dict[WebSocket, str] = {}
+        self.guest_count = 0
 
     async def connect(self, websocket: WebSocket, username: str):
         await websocket.accept()
@@ -41,7 +42,10 @@ def main_page(request: Request):
 
 @app.websocket("/ws")
 async def websocket_endpoint(websocket: WebSocket, username: str = "GUEST"):
-    print(username)
+    if username == "":
+        username = f"GUEST{connection_manager.guest_count}"
+        connection_manager.guest_count += 1
+
     await connection_manager.connect(websocket, username)
     try:
         while True:
