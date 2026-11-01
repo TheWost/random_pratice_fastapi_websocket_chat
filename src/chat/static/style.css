@@ -13,6 +13,9 @@ body {
     align-items: center;
 }
 
+.disapear {
+  display: none;
+}
 .terminal {
     width: 700px;
     height: 500px;
