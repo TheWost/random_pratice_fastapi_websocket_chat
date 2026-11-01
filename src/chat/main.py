@@ -47,7 +47,13 @@ async def websocket_endpoint(websocket: WebSocket, username: str = "GUEST"):
         username = f"GUEST{g_count if g_count else ''}"
         connection_manager.guest_count += 1
 
+    elif username.strip().lower() == "server":
+        username = "client"
+
     await connection_manager.connect(websocket, username)
+
+    await connection_manager.broadcast(username="SERVER", msg=f"{username} has joined!")
+
     try:
         while True:
             data = await websocket.receive_text()
