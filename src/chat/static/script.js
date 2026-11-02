@@ -1,8 +1,17 @@
 const msg_place = document.querySelector(".messages");
 const terminal_form = document.querySelector("form");
 const temrinal_container = document.querySelector("div")
+const message = document.querySelector("textarea")
 const body = document.body
 let ws;
+
+message.addEventListener("keydown", (e) => {
+  if (e.key == "Enter" && !e.shiftKey) {
+    e.preventDefault();
+    send_message();
+  }
+}
+)
 
 function login(e) {
   console.log(e)
@@ -10,7 +19,7 @@ function login(e) {
 
   const username = e.target.elements["username"].value;
 
-  ws = ws = new WebSocket(
+  ws = new WebSocket(
     `ws://${window.location.host}/ws?username=${encodeURIComponent(username)}`
   );
 
@@ -63,9 +72,8 @@ function blur_form() {
 }
 
 
-function SendMsg(e) {
-  e.preventDefault();
-  const input = e.srcElement["message"];
+function send_message(e) {
+  const input = e.target.elements["message"]
   ws.send(input.value);
   input.value = '';
 }
