@@ -13,17 +13,17 @@
         <div class="messages">
         </div>
 
-        <form onsubmit="send_message(event)">
+        <form>
             <span class="prompt">></span>
             <textarea
                 type="text"
-                id="message"
-                onblur="blur_form()"
+                id="message" onblur="blur_form()"
                 name="message"
                 placeholder="Type something..."
                 autocomplete="off"
                 autofocus
                 rows="1"
+                class="textarea_size"
             ></textarea>
         </form>
 

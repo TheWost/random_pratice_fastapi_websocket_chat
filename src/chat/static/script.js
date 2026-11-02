@@ -1,11 +1,11 @@
 const msg_place = document.querySelector(".messages");
 const terminal_form = document.querySelector("form");
 const temrinal_container = document.querySelector("div")
-const message = document.querySelector("textarea")
+const input_area = document.querySelector("textarea")
 const body = document.body
 let ws;
 
-message.addEventListener("keydown", (e) => {
+input_area.addEventListener("keydown", (e) => {
   if (e.key == "Enter" && !e.shiftKey) {
     e.preventDefault();
     send_message();
@@ -72,8 +72,7 @@ function blur_form() {
 }
 
 
-function send_message(e) {
-  const input = e.target.elements["message"]
-  ws.send(input.value);
-  input.value = '';
+function send_message() {
+  ws.send(input_area.value);
+  input_area.value = '';
 }
