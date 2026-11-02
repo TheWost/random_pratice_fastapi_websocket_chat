@@ -15,7 +15,7 @@
 
         <form onsubmit="SendMsg(event)">
             <span class="prompt">></span>
-            <input
+            <textarea
                 type="text"
                 id="message"
                 onblur="blur_form()"
@@ -23,7 +23,8 @@
                 placeholder="Type something..."
                 autocomplete="off"
                 autofocus
-            >
+                rows="1"
+            ></textarea>
         </form>
 
     </div>
