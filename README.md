@@ -19,7 +19,7 @@ A real-time group chat built with Python, FastAPI and WebSockets.
 Clone the repository:
 
 ```bash
-git clone https://github.com/TheWost/chat
+git clone https://github.com/TheWost/random_pratice_fastapi_websocket_chat
 cd chat
 ```
 
