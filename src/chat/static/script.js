@@ -4,6 +4,7 @@ const temrinal_container = document.querySelector("div")
 const input_area = document.querySelector("textarea")
 const code_checkbox = document.querySelector("input")
 const body = document.body
+let logged_in = false;
 let ws;
 
 input_area.addEventListener("keydown", (e) => {
@@ -37,10 +38,15 @@ function login(e) {
       p.textContent = e.data
     }
     msg_place.append(p)
+    msg_place.scrollTop = msg_place.scrollHeight;
   }
 
-  temrinal_container.style.display = "flex";
-  e.target.style.display = "none";
+  if (!logged_in) {
+    temrinal_container.style.display = "flex";
+    e.target.style.display = "none";
+    logged_in = true;
+  }
+
 }
 
 function create_login_input() {
