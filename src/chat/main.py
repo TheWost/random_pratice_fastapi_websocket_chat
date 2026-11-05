@@ -79,9 +79,9 @@ async def websocket_endpoint(websocket: WebSocket, username: str = "GUEST"):
 
     await connection_manager.connect(websocket, username)
 
-    await connection_manager.broadcast(username="SERVER", msg=f"{username} has joined!")
-
     await connection_manager.send_history(websocket)
+
+    await connection_manager.broadcast(username="SERVER", msg=f"{username} has joined!")
 
     try:
         while True:
