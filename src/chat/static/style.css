@@ -33,6 +33,7 @@ body {
 .messages {
     flex: 1;
     overflow-y: auto;
+    white-space: pre-wrap;
 }
 
 .message {

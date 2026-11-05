@@ -27,8 +27,11 @@ function login(e) {
     const p = document.createElement("p");
 
     p.textContent = e.data
+    p.classList.add("message")
 
     msg_place.append(p)
+    console.log(JSON.stringify(e.data));
+    console.log(e.data)
   }
 
   temrinal_container.style.display = "flex";

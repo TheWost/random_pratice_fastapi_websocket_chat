@@ -57,6 +57,7 @@ async def websocket_endpoint(websocket: WebSocket, username: str = "GUEST"):
     try:
         while True:
             data = await websocket.receive_text()
+            print(repr(data))
             await connection_manager.broadcast(msg=data, websocket=websocket)
 
     except WebSocketDisconnect:
