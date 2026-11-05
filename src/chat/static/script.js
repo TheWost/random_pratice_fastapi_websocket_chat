@@ -2,7 +2,7 @@ const msg_place = document.querySelector(".messages");
 const terminal_form = document.querySelector("form");
 const temrinal_container = document.querySelector("div")
 const input_area = document.querySelector("textarea")
-const code_checkbox = docuemnt.querySelector(".code_checkbox")
+const code_checkbox = document.querySelector("input")
 const body = document.body
 let ws;
 
@@ -15,7 +15,6 @@ input_area.addEventListener("keydown", (e) => {
 )
 
 function login(e) {
-  console.log(e)
   e.preventDefault();
 
   const username = e.target.elements["username"].value;
@@ -29,7 +28,7 @@ function login(e) {
 
     p.classList.add("message")
 
-    if (e.data.slice(0, 12) === "[BLOCK CODE]") {
+    if (e.data.startsWith("[BLOCK CODE]")) {
       const block_code = document.createElement("code");
       block_code.textContent = e.data.slice(12)
       p.append(block_code)

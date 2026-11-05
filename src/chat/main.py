@@ -27,9 +27,17 @@ class ConnectionManager:
         if websocket:
             username = self.__clients[websocket]
 
+        is_code = msg.startswith("[BLOCK CODE]")
+
+        if is_code:
+            msg = msg[12:]  # msg has prefix of block code
+
+        formated_msg = username + " -> " + msg
+
         for client in self.__clients:
-            formated_msg = username + " -> " + msg
-            await client.send_text(formated_msg)
+            await client.send_text(
+                f"[BLOCK CODE]{formated_msg}" if is_code else formated_msg
+            )
 
 
 connection_manager = ConnectionManager()
@@ -57,7 +65,6 @@ async def websocket_endpoint(websocket: WebSocket, username: str = "GUEST"):
     try:
         while True:
             data = await websocket.receive_text()
-            print(repr(data))
             await connection_manager.broadcast(msg=data, websocket=websocket)
 
     except WebSocketDisconnect:
