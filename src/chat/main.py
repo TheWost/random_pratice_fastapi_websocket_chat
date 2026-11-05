@@ -1,9 +1,6 @@
-import json
-
 from fastapi import FastAPI, Request, WebSocket, WebSocketDisconnect
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
-from starlette.types import Message
 
 app = FastAPI()
 templates = Jinja2Templates(directory="src/chat/templates")
