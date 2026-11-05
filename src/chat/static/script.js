@@ -2,6 +2,7 @@ const msg_place = document.querySelector(".messages");
 const terminal_form = document.querySelector("form");
 const temrinal_container = document.querySelector("div")
 const input_area = document.querySelector("textarea")
+const code_checkbox = docuemnt.querySelector(".code_checkbox")
 const body = document.body
 let ws;
 
@@ -26,12 +27,17 @@ function login(e) {
   ws.onmessage = (e) => {
     const p = document.createElement("p");
 
-    p.textContent = e.data
     p.classList.add("message")
 
+    if (e.data.slice(0, 12) === "[BLOCK CODE]") {
+      const block_code = document.createElement("code");
+      block_code.textContent = e.data.slice(12)
+      p.append(block_code)
+    }
+    else {
+      p.textContent = e.data
+    }
     msg_place.append(p)
-    console.log(JSON.stringify(e.data));
-    console.log(e.data)
   }
 
   temrinal_container.style.display = "flex";
@@ -76,6 +82,13 @@ function blur_form() {
 
 
 function send_message() {
-  ws.send(input_area.value);
+
+  let message_content = input_area.value;
+
+  if (code_checkbox.checked) {
+    message_content = "[BLOCK CODE]" + message_content;
+  }
+
+  ws.send(message_content);
   input_area.value = '';
 }

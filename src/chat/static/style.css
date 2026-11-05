@@ -128,4 +128,10 @@ input::placeholder {
     border-color: #8ec07c;
 }
 
-
+.message code {
+    display: block;
+    white-space: pre-wrap;
+    background: black;
+    padding: 8px;
+    border-radius: 4px;
+}
